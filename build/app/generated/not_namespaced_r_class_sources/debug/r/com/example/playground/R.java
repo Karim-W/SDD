@@ -251,7 +251,8 @@ public final class R {
     public static final int title=0x7f050042;
   }
   public static final class integer {
-    public static final int status_bar_notification_info_maxnum=0x7f060000;
+    public static final int google_play_services_version=0x7f060000;
+    public static final int status_bar_notification_info_maxnum=0x7f060001;
   }
   public static final class layout {
     public static final int custom_dialog=0x7f070000;
@@ -266,7 +267,16 @@ public final class R {
     public static final int ic_launcher=0x7f080000;
   }
   public static final class string {
-    public static final int status_bar_notification_info_overflow=0x7f090000;
+    public static final int common_google_play_services_unknown_issue=0x7f090000;
+    public static final int default_web_client_id=0x7f090001;
+    public static final int firebase_database_url=0x7f090002;
+    public static final int gcm_defaultSenderId=0x7f090003;
+    public static final int google_api_key=0x7f090004;
+    public static final int google_app_id=0x7f090005;
+    public static final int google_crash_reporting_api_key=0x7f090006;
+    public static final int google_storage_bucket=0x7f090007;
+    public static final int project_id=0x7f090008;
+    public static final int status_bar_notification_info_overflow=0x7f090009;
   }
   public static final class style {
     public static final int LaunchTheme=0x7f0a0000;
@@ -289,7 +299,7 @@ public final class R {
      * <tr><th>Attribute</th><th>Description</th></tr>
      * <tr><td><code>{@link #ColorStateListItem_android_color android:color}</code></td><td></td></tr>
      * <tr><td><code>{@link #ColorStateListItem_android_alpha android:alpha}</code></td><td></td></tr>
-     * <tr><td><code>{@link #ColorStateListItem_alpha com.example.playground:alpha}</code></td><td>Alpha multiplier applied to the base color.</td></tr>
+     * <tr><td><code>{@link #ColorStateListItem_alpha com.sunflower.SDD:alpha}</code></td><td>Alpha multiplier applied to the base color.</td></tr>
      * </table>
      * @see #ColorStateListItem_android_color
      * @see #ColorStateListItem_android_alpha
@@ -326,7 +336,7 @@ public final class R {
      *
      * <p>May be a floating point value, such as "<code>1.2</code>".
      *
-     * @attr name com.example.playground:alpha
+     * @attr name com.sunflower.SDD:alpha
      */
     public static final int ColorStateListItem_alpha=2;
     /**
@@ -336,12 +346,12 @@ public final class R {
      * <colgroup align="left" />
      * <colgroup align="left" />
      * <tr><th>Attribute</th><th>Description</th></tr>
-     * <tr><td><code>{@link #FontFamily_fontProviderAuthority com.example.playground:fontProviderAuthority}</code></td><td>The authority of the Font Provider to be used for the request.</td></tr>
-     * <tr><td><code>{@link #FontFamily_fontProviderCerts com.example.playground:fontProviderCerts}</code></td><td>The sets of hashes for the certificates the provider should be signed with.</td></tr>
-     * <tr><td><code>{@link #FontFamily_fontProviderFetchStrategy com.example.playground:fontProviderFetchStrategy}</code></td><td>The strategy to be used when fetching font data from a font provider in XML layouts.</td></tr>
-     * <tr><td><code>{@link #FontFamily_fontProviderFetchTimeout com.example.playground:fontProviderFetchTimeout}</code></td><td>The length of the timeout during fetching.</td></tr>
-     * <tr><td><code>{@link #FontFamily_fontProviderPackage com.example.playground:fontProviderPackage}</code></td><td>The package for the Font Provider to be used for the request.</td></tr>
-     * <tr><td><code>{@link #FontFamily_fontProviderQuery com.example.playground:fontProviderQuery}</code></td><td>The query to be sent over to the provider.</td></tr>
+     * <tr><td><code>{@link #FontFamily_fontProviderAuthority com.sunflower.SDD:fontProviderAuthority}</code></td><td>The authority of the Font Provider to be used for the request.</td></tr>
+     * <tr><td><code>{@link #FontFamily_fontProviderCerts com.sunflower.SDD:fontProviderCerts}</code></td><td>The sets of hashes for the certificates the provider should be signed with.</td></tr>
+     * <tr><td><code>{@link #FontFamily_fontProviderFetchStrategy com.sunflower.SDD:fontProviderFetchStrategy}</code></td><td>The strategy to be used when fetching font data from a font provider in XML layouts.</td></tr>
+     * <tr><td><code>{@link #FontFamily_fontProviderFetchTimeout com.sunflower.SDD:fontProviderFetchTimeout}</code></td><td>The length of the timeout during fetching.</td></tr>
+     * <tr><td><code>{@link #FontFamily_fontProviderPackage com.sunflower.SDD:fontProviderPackage}</code></td><td>The package for the Font Provider to be used for the request.</td></tr>
+     * <tr><td><code>{@link #FontFamily_fontProviderQuery com.sunflower.SDD:fontProviderQuery}</code></td><td>The query to be sent over to the provider.</td></tr>
      * </table>
      * @see #FontFamily_fontProviderAuthority
      * @see #FontFamily_fontProviderCerts
@@ -362,7 +372,7 @@ public final class R {
      * <p>May be a string value, using '\\;' to escape characters such as
      * '\\n' or '\\uxxxx' for a unicode character;
      *
-     * @attr name com.example.playground:fontProviderAuthority
+     * @attr name com.sunflower.SDD:fontProviderAuthority
      */
     public static final int FontFamily_fontProviderAuthority=0;
     /**
@@ -379,7 +389,7 @@ public final class R {
      * attribute in the form
      * "<code>?[<i>package</i>:]<i>type</i>/<i>name</i></code>".
      *
-     * @attr name com.example.playground:fontProviderCerts
+     * @attr name com.sunflower.SDD:fontProviderCerts
      */
     public static final int FontFamily_fontProviderCerts=1;
     /**
@@ -411,7 +421,7 @@ public final class R {
      * default typeface will be used instead.</td></tr>
      * </table>
      *
-     * @attr name com.example.playground:fontProviderFetchStrategy
+     * @attr name com.sunflower.SDD:fontProviderFetchStrategy
      */
     public static final int FontFamily_fontProviderFetchStrategy=2;
     /**
@@ -430,7 +440,7 @@ public final class R {
      * timeout and wait until a reply is received from the font provider.</td></tr>
      * </table>
      *
-     * @attr name com.example.playground:fontProviderFetchTimeout
+     * @attr name com.sunflower.SDD:fontProviderFetchTimeout
      */
     public static final int FontFamily_fontProviderFetchTimeout=3;
     /**
@@ -442,7 +452,7 @@ public final class R {
      * <p>May be a string value, using '\\;' to escape characters such as
      * '\\n' or '\\uxxxx' for a unicode character;
      *
-     * @attr name com.example.playground:fontProviderPackage
+     * @attr name com.sunflower.SDD:fontProviderPackage
      */
     public static final int FontFamily_fontProviderPackage=4;
     /**
@@ -454,7 +464,7 @@ public final class R {
      * <p>May be a string value, using '\\;' to escape characters such as
      * '\\n' or '\\uxxxx' for a unicode character;
      *
-     * @attr name com.example.playground:fontProviderQuery
+     * @attr name com.sunflower.SDD:fontProviderQuery
      */
     public static final int FontFamily_fontProviderQuery=5;
     /**
@@ -469,11 +479,11 @@ public final class R {
      * <tr><td><code>{@link #FontFamilyFont_android_fontStyle android:fontStyle}</code></td><td></td></tr>
      * <tr><td><code>{@link #FontFamilyFont_android_ttcIndex android:ttcIndex}</code></td><td></td></tr>
      * <tr><td><code>{@link #FontFamilyFont_android_fontVariationSettings android:fontVariationSettings}</code></td><td></td></tr>
-     * <tr><td><code>{@link #FontFamilyFont_font com.example.playground:font}</code></td><td>The reference to the font file to be used.</td></tr>
-     * <tr><td><code>{@link #FontFamilyFont_fontStyle com.example.playground:fontStyle}</code></td><td>The style of the given font file.</td></tr>
-     * <tr><td><code>{@link #FontFamilyFont_fontVariationSettings com.example.playground:fontVariationSettings}</code></td><td>The variation settings to be applied to the font.</td></tr>
-     * <tr><td><code>{@link #FontFamilyFont_fontWeight com.example.playground:fontWeight}</code></td><td>The weight of the given font file.</td></tr>
-     * <tr><td><code>{@link #FontFamilyFont_ttcIndex com.example.playground:ttcIndex}</code></td><td>The index of the font in the tcc font file.</td></tr>
+     * <tr><td><code>{@link #FontFamilyFont_font com.sunflower.SDD:font}</code></td><td>The reference to the font file to be used.</td></tr>
+     * <tr><td><code>{@link #FontFamilyFont_fontStyle com.sunflower.SDD:fontStyle}</code></td><td>The style of the given font file.</td></tr>
+     * <tr><td><code>{@link #FontFamilyFont_fontVariationSettings com.sunflower.SDD:fontVariationSettings}</code></td><td>The variation settings to be applied to the font.</td></tr>
+     * <tr><td><code>{@link #FontFamilyFont_fontWeight com.sunflower.SDD:fontWeight}</code></td><td>The weight of the given font file.</td></tr>
+     * <tr><td><code>{@link #FontFamilyFont_ttcIndex com.sunflower.SDD:ttcIndex}</code></td><td>The index of the font in the tcc font file.</td></tr>
      * </table>
      * @see #FontFamilyFont_android_font
      * @see #FontFamilyFont_android_fontWeight
@@ -560,7 +570,7 @@ public final class R {
      * attribute in the form
      * "<code>?[<i>package</i>:]<i>type</i>/<i>name</i></code>".
      *
-     * @attr name com.example.playground:font
+     * @attr name com.sunflower.SDD:font
      */
     public static final int FontFamilyFont_font=5;
     /**
@@ -580,7 +590,7 @@ public final class R {
      * <tr><td>normal</td><td>0</td><td></td></tr>
      * </table>
      *
-     * @attr name com.example.playground:fontStyle
+     * @attr name com.sunflower.SDD:fontStyle
      */
     public static final int FontFamilyFont_fontStyle=6;
     /**
@@ -594,7 +604,7 @@ public final class R {
      * <p>May be a string value, using '\\;' to escape characters such as
      * '\\n' or '\\uxxxx' for a unicode character;
      *
-     * @attr name com.example.playground:fontVariationSettings
+     * @attr name com.sunflower.SDD:fontVariationSettings
      */
     public static final int FontFamilyFont_fontVariationSettings=7;
     /**
@@ -608,7 +618,7 @@ public final class R {
      *
      * <p>May be an integer value, such as "<code>100</code>".
      *
-     * @attr name com.example.playground:fontWeight
+     * @attr name com.sunflower.SDD:fontWeight
      */
     public static final int FontFamilyFont_fontWeight=8;
     /**
@@ -619,7 +629,7 @@ public final class R {
      *
      * <p>May be an integer value, such as "<code>100</code>".
      *
-     * @attr name com.example.playground:ttcIndex
+     * @attr name com.sunflower.SDD:ttcIndex
      */
     public static final int FontFamilyFont_ttcIndex=9;
     /**
