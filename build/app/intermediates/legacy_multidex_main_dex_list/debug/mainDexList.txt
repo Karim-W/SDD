@@ -201,8 +201,9 @@ com/google/firebase/auth/PhoneMultiFactorInfo.class
 com/google/firebase/auth/internal/zzh.class
 com/google/firebase/platforminfo/AutoValue_LibraryVersion.class
 com/google/firebase/platforminfo/LibraryVersion.class
+io/flutter/FlutterInjector.class
 io/flutter/app/FlutterApplication.class
-io/flutter/view/FlutterMain.class
+io/flutter/embedding/engine/loader/FlutterLoader.class
 kotlin/BuilderInference.class
 kotlin/Deprecated.class
 kotlin/DeprecationLevel.class

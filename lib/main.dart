@@ -53,7 +53,12 @@ class _LoginPageState extends State<LoginPage> {
                 },
                 onSaved: (input) => _password = input,
                 decoration: InputDecoration(labelText: 'Enter your password'),
+                obscureText: true,
               ),
+            ),
+            RaisedButton(
+              onPressed: () {},
+              child: Text('Sign-in'),
             )
           ]),
         ),
