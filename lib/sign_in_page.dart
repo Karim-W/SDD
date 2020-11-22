@@ -14,7 +14,7 @@ class SignInPage extends StatelessWidget {
           iconTheme: IconThemeData(color: Colors.white),
           elevation: 0.0,
           title: Text(
-            'Sign-In',
+            'Sign-I n',
             style: TextStyle(
                 fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
           ),

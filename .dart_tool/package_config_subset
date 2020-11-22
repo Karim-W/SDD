@@ -54,6 +54,10 @@ firebase_core_web
 2.1
 file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-0.2.1/
 file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-0.2.1/lib/
+firebase_database
+2.0
+file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_database-4.3.0/
+file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_database-4.3.0/lib/
 http_parser
 2.3
 file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-3.1.4/
