@@ -37,7 +37,7 @@ class _myHomePageState extends State<HomePage> {
             onPressed: () {
               context.read<AuthenticationService>().signOut();
             },
-            child: Text("Logout"),
+            child: Text("Log out"),
             shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
           ),
         ],
