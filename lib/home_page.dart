@@ -162,7 +162,8 @@ Widget _buildHorizontalList(
               name: locs.elementAt(index).name,
               area: locs.elementAt(index).area,
               city: locs.elementAt(index).city,
-              violations: locs.elementAt(index).activeViolation);
+              violations: locs.elementAt(index).activeViolation,
+              img: locs.elementAt(index).locImg);
         }),
   );
 }
@@ -174,9 +175,14 @@ Widget _buildItem(
     String name,
     String area,
     String city,
-    int violations}) {
+    int violations,
+    String img}) {
   double edgeSize = 8.0;
   double itemSize = parentSize - edgeSize * 2.0;
+  if (img == 'n/a') {
+    img =
+        'https://coolbackgrounds.io/images/backgrounds/black/pure-black-background-f82588d3.jpg';
+  }
   return Container(
     padding: EdgeInsets.all(edgeSize),
     child: SizedBox(
@@ -195,28 +201,46 @@ Widget _buildItem(
                   end: new Alignment(-1.0, -1.0)),
               borderRadius: BorderRadius.circular(20)),
           child: Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      fit: BoxFit.cover, image: NetworkImage(img)),
+                  borderRadius: BorderRadius.all(Radius.circular(20.0))),
               alignment: Alignment.bottomCenter, //.bottomCenter,
               child: Padding(
                   padding: EdgeInsets.only(top: (itemSize * 1.4) - 16),
-                  child: Column(children: [
-                    Text(
-                      name,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Text(area + "," + city,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                        )),
-                    Text("Number of Violations: " + violations.toString(),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                        ))
-                  ]))),
+                  child: SizedBox(
+                    width: itemSize,
+                    child: DecoratedBox(
+                        decoration: BoxDecoration(
+                            color: color,
+                            gradient: new LinearGradient(
+                                colors: [
+                                  Colors.grey.withOpacity(0.35),
+                                  Colors.grey.withOpacity(0.25)
+                                ],
+                                begin: Alignment.centerRight,
+                                end: new Alignment(-1.0, -1.0)),
+                            borderRadius: BorderRadius.circular(4)),
+                        child: Column(children: [
+                          Text(
+                            name,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(area + "," + city,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                              )),
+                          Text("Number of Violations: " + violations.toString(),
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                              ))
+                        ])),
+                  ))),
         ),
       ),
     ),
