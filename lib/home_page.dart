@@ -1,12 +1,22 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/rendering.dart';
 import 'package:playground/Models/manager.dart';
 import 'package:playground/Models/violation.dart';
+// import 'package:Locations.dart';
 
 import 'authentication_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+class Location {
+  String id, name, city, area, locImg;
+  int activeViolation;
+  double long, lat;
+  Location(this.id, this.activeViolation, this.area, this.city, this.lat,
+      this.long, this.name, this.locImg);
+}
 
 class HomePage extends StatefulWidget {
   HomePage({this.app});
@@ -18,31 +28,70 @@ class HomePage extends StatefulWidget {
 }
 
 class _myHomePageState extends State<HomePage> {
-  final gee = ['hello', 'my', 'name', 'is', 'karim'];
-  List<String> intArr = ['Paul', 'Carrefour', 'FedEx', 'Nike', 'Nandos'];
-  List<String> locArr = ['Mirdif', 'Downtown', 'Sports City', 'JBR', 'Marina'];
-  List<String> cityArr = [
-    'Dubai,UAE',
-    'Dubai,UAE',
-    'Dubai,UAE',
-    'Dubai,UAE',
-    'Dubai,UAE'
-  ];
+  List<String> LocationIds = [];
+  List<Location> userLocations = [];
   List<int> vioArr = [3, 5, 2, 1, 0];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    DatabaseReference Dbref = FirebaseDatabase.instance
+        .reference()
+        .child("users")
+        .child(FirebaseAuth.instance.currentUser.uid)
+        .child("pairedLocations");
+    Dbref.once().then((DataSnapshot dataSnapShot) {
+      var keys = dataSnapShot.value.keys;
+      var values = dataSnapShot.value;
+      for (var key in keys) {
+        LocationIds.add(key);
+        DatabaseReference ref =
+            FirebaseDatabase.instance.reference().child("Locations").child(key);
+        ref.once().then((DataSnapshot dataSnapShots) {
+          var keyse = dataSnapShots.value.keys;
+          var valuese = dataSnapShots.value;
+          print(valuese);
+          Location bigL = new Location(
+              valuese['id'],
+              valuese['activeViolations'],
+              valuese['area'],
+              valuese['city'],
+              valuese['lat'],
+              valuese['long'],
+              valuese['name'],
+              valuese['locImg']);
+          print(bigL.area);
+          userLocations.add(bigL);
+          setState(() {});
+        });
+        //print(key);
+      }
+
+      //print(keys.toString());
+    });
+  }
+
   final databaseReference = FirebaseDatabase.instance;
   @override
   Widget build(BuildContextcontext) {
     final DBref = databaseReference.reference();
     return new Scaffold(
-        backgroundColor: Color(0xff0B0500),
+        //backgroundColor: Color(0xff0B0500),
         appBar: new AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          leading: Icon(Icons.menu),
-          title: Text("Home"),
+          leading: Icon(
+            Icons.menu,
+            color: Colors.black,
+          ),
+          title: Text(
+            "Home",
+            style: TextStyle(color: Colors.black),
+          ),
           actions: <Widget>[
             FlatButton(
-              textColor: Colors.white,
+              //textColor: Colors.white,
+              textColor: Colors.black,
               onPressed: () {
                 context.read<AuthenticationService>().signOut();
               },
@@ -59,23 +108,38 @@ class _myHomePageState extends State<HomePage> {
                 child: _buildHorizontalList(
                     w_idth: MediaQuery.of(context).size.width,
                     parentIndex: 1,
-                    howmany: intArr.length,
-                    locTitle: intArr,
-                    locArea: locArr,
-                    locCity: cityArr,
-                    vioArr: vioArr),
+                    locs: userLocations),
               ),
               Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Container(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        "HELooooo",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold),
-                      ))),
+                padding: EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    RawMaterialButton(
+                      onPressed: () {},
+                      elevation: 2.0,
+                      fillColor: Colors.white,
+                      child: Icon(
+                        Icons.add,
+                        size: 35.0,
+                      ),
+                      padding: EdgeInsets.all(15.0),
+                      shape: CircleBorder(),
+                    ),
+                    RawMaterialButton(
+                      onPressed: () {},
+                      elevation: 2.0,
+                      fillColor: Colors.white,
+                      child: Icon(
+                        Icons.delete,
+                        size: 35.0,
+                      ),
+                      padding: EdgeInsets.all(15.0),
+                      shape: CircleBorder(),
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
         ));
@@ -83,28 +147,22 @@ class _myHomePageState extends State<HomePage> {
 }
 
 Widget _buildHorizontalList(
-    {double w_idth,
-    int parentIndex,
-    int howmany,
-    List<String> locTitle,
-    List<String> locArea,
-    List<String> locCity,
-    List<int> vioArr}) {
+    {double w_idth, int parentIndex, List<Location> locs}) {
   double height = w_idth - 2;
   return SizedBox(
     height: height * 1.6,
     child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: howmany,
+        itemCount: locs.length,
         itemBuilder: (BuildContext content, int index) {
           return _buildItem(
               index: index + 1,
               color: Colors.deepPurpleAccent,
               parentSize: height,
-              name: locTitle[index],
-              area: locArea[index],
-              city: locCity[index],
-              violations: vioArr[index]);
+              name: locs.elementAt(index).name,
+              area: locs.elementAt(index).area,
+              city: locs.elementAt(index).city,
+              violations: locs.elementAt(index).activeViolation);
         }),
   );
 }
@@ -135,7 +193,7 @@ Widget _buildItem(
                   colors: [Colors.purple, color.withOpacity(0.75)],
                   begin: Alignment.centerRight,
                   end: new Alignment(-1.0, -1.0)),
-              borderRadius: BorderRadius.circular(10)),
+              borderRadius: BorderRadius.circular(20)),
           child: Container(
               alignment: Alignment.bottomCenter, //.bottomCenter,
               child: Padding(
