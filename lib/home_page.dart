@@ -107,38 +107,9 @@ class _myHomePageState extends State<HomePage> {
               Container(
                 child: _buildHorizontalList(
                     w_idth: MediaQuery.of(context).size.width,
+                    heigh: MediaQuery.of(context).size.height,
                     parentIndex: 1,
                     locs: userLocations),
-              ),
-              Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    RawMaterialButton(
-                      onPressed: () {},
-                      elevation: 2.0,
-                      fillColor: Colors.white,
-                      child: Icon(
-                        Icons.add,
-                        size: 35.0,
-                      ),
-                      padding: EdgeInsets.all(15.0),
-                      shape: CircleBorder(),
-                    ),
-                    RawMaterialButton(
-                      onPressed: () {},
-                      elevation: 2.0,
-                      fillColor: Colors.white,
-                      child: Icon(
-                        Icons.delete,
-                        size: 35.0,
-                      ),
-                      padding: EdgeInsets.all(15.0),
-                      shape: CircleBorder(),
-                    )
-                  ],
-                ),
               ),
             ],
           ),
@@ -147,10 +118,10 @@ class _myHomePageState extends State<HomePage> {
 }
 
 Widget _buildHorizontalList(
-    {double w_idth, int parentIndex, List<Location> locs}) {
+    {double w_idth, double heigh, int parentIndex, List<Location> locs}) {
   double height = w_idth - 2;
   return SizedBox(
-    height: height * 1.6,
+    height: heigh - 180,
     child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: locs.length,
@@ -163,7 +134,9 @@ Widget _buildHorizontalList(
               area: locs.elementAt(index).area,
               city: locs.elementAt(index).city,
               violations: locs.elementAt(index).activeViolation,
-              img: locs.elementAt(index).locImg);
+              img: locs.elementAt(index).locImg,
+              heig: heigh - 180,
+              storeID: locs.elementAt(index).id);
         }),
   );
 }
@@ -176,7 +149,9 @@ Widget _buildItem(
     String area,
     String city,
     int violations,
-    String img}) {
+    String img,
+    double heig,
+    String storeID}) {
   double edgeSize = 8.0;
   double itemSize = parentSize - edgeSize * 2.0;
   if (img == 'n/a') {
@@ -185,62 +160,91 @@ Widget _buildItem(
   }
   return Container(
     padding: EdgeInsets.all(edgeSize),
-    child: SizedBox(
-      width: itemSize,
-      height: itemSize,
-      child: Padding(
-        padding: EdgeInsets.all(0.0),
-        child: Container(
-          width: 36,
-          height: 36,
-          decoration: BoxDecoration(
-              color: color,
-              gradient: new LinearGradient(
-                  colors: [Colors.purple, color.withOpacity(0.75)],
-                  begin: Alignment.centerRight,
-                  end: new Alignment(-1.0, -1.0)),
-              borderRadius: BorderRadius.circular(20)),
+    child: InkWell(
+      onTap: () {
+        print("hi");
+      }, // Handle your callback
+      child: SizedBox(
+        width: itemSize,
+        height: itemSize,
+        child: Padding(
+          padding: EdgeInsets.all(0.0),
           child: Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.cover, image: NetworkImage(img)),
-                  borderRadius: BorderRadius.all(Radius.circular(20.0))),
-              alignment: Alignment.bottomCenter, //.bottomCenter,
-              child: Padding(
-                  padding: EdgeInsets.only(top: (itemSize * 1.4) - 16),
-                  child: SizedBox(
-                    width: itemSize,
-                    child: DecoratedBox(
-                        decoration: BoxDecoration(
-                            color: color,
-                            gradient: new LinearGradient(
-                                colors: [
-                                  Colors.grey.withOpacity(0.35),
-                                  Colors.grey.withOpacity(0.25)
+            width: 36,
+            height: 36,
+            decoration: BoxDecoration(
+                color: color,
+                gradient: new LinearGradient(
+                    colors: [Colors.grey, color.withOpacity(0.75)],
+                    begin: Alignment.centerRight,
+                    end: new Alignment(-1.0, -1.0)),
+                borderRadius: BorderRadius.circular(20)),
+            child: Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        fit: BoxFit.fitHeight, image: NetworkImage(img)),
+                    borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                alignment: Alignment.bottomCenter, //.bottomCenter,
+                child: Padding(
+                    padding: EdgeInsets.only(top: (heig - 190)),
+                    child: SizedBox(
+                      width: itemSize,
+                      child: DecoratedBox(
+                          decoration: BoxDecoration(
+                              color: color,
+                              gradient: new LinearGradient(
+                                  colors: [
+                                    Colors.grey.withOpacity(0.60),
+                                    Colors.white.withOpacity(0.70)
+                                  ],
+                                  begin: Alignment.centerRight,
+                                  end: new Alignment(-1.0, -1.0)),
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Column(children: [
+                            Text(
+                              name,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Text(area + "," + city,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                )),
+                            Text(
+                                "Number of Violations: " +
+                                    violations.toString(),
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                )),
+                            Padding(
+                              padding: EdgeInsets.all(16.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  RawMaterialButton(
+                                    onPressed: () {
+                                      print("Delet" + storeID);
+                                    },
+                                    elevation: 2.0,
+                                    fillColor: Colors.white,
+                                    child: Icon(
+                                      Icons.delete,
+                                      size: 35.0,
+                                    ),
+                                    padding: EdgeInsets.all(15.0),
+                                    shape: CircleBorder(),
+                                  ),
                                 ],
-                                begin: Alignment.centerRight,
-                                end: new Alignment(-1.0, -1.0)),
-                            borderRadius: BorderRadius.circular(4)),
-                        child: Column(children: [
-                          Text(
-                            name,
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(area + "," + city,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                              )),
-                          Text("Number of Violations: " + violations.toString(),
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                              ))
-                        ])),
-                  ))),
+                              ),
+                            ),
+                          ])),
+                    ))),
+          ),
         ),
       ),
     ),
