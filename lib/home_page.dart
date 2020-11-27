@@ -4,6 +4,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/rendering.dart';
 import 'package:playground/Models/manager.dart';
 import 'package:playground/Models/violation.dart';
+import 'storeHistoryView.dart';
 // import 'package:Locations.dart';
 
 import 'authentication_service.dart';
@@ -80,9 +81,12 @@ class _myHomePageState extends State<HomePage> {
         appBar: new AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          leading: Icon(
-            Icons.menu,
+          leading: IconButton(
+            icon: Icon(Icons.menu),
             color: Colors.black,
+            onPressed: () {
+              print("GOOD MORNING");
+            },
           ),
           title: Text(
             "Home",
@@ -109,7 +113,8 @@ class _myHomePageState extends State<HomePage> {
                     w_idth: MediaQuery.of(context).size.width,
                     heigh: MediaQuery.of(context).size.height,
                     parentIndex: 1,
-                    locs: userLocations),
+                    locs: userLocations,
+                    contex: context),
               ),
             ],
           ),
@@ -118,7 +123,11 @@ class _myHomePageState extends State<HomePage> {
 }
 
 Widget _buildHorizontalList(
-    {double w_idth, double heigh, int parentIndex, List<Location> locs}) {
+    {double w_idth,
+    double heigh,
+    int parentIndex,
+    List<Location> locs,
+    BuildContext contex}) {
   double height = w_idth - 2;
   return SizedBox(
     height: heigh - 180,
@@ -136,7 +145,8 @@ Widget _buildHorizontalList(
               violations: locs.elementAt(index).activeViolation,
               img: locs.elementAt(index).locImg,
               heig: heigh - 180,
-              storeID: locs.elementAt(index).id);
+              storeID: locs.elementAt(index).id,
+              context: contex);
         }),
   );
 }
@@ -151,7 +161,8 @@ Widget _buildItem(
     int violations,
     String img,
     double heig,
-    String storeID}) {
+    String storeID,
+    BuildContext context}) {
   double edgeSize = 8.0;
   double itemSize = parentSize - edgeSize * 2.0;
   if (img == 'n/a') {
@@ -163,6 +174,13 @@ Widget _buildItem(
     child: InkWell(
       onTap: () {
         print("hi");
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => storeHistoryView(
+                storeID: storeID,
+              ),
+            ));
       }, // Handle your callback
       child: SizedBox(
         width: itemSize,
