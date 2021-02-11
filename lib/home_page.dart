@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:playground/Models/manager.dart';
 import 'package:playground/Models/violation.dart';
 import 'storeHistoryView.dart';
+import 'package:playground/Views/usersetting.dart';
 // import 'package:Locations.dart';
 
 import 'authentication_service.dart';
@@ -86,6 +87,9 @@ class _myHomePageState extends State<HomePage> {
             color: Colors.black,
             onPressed: () {
               print("GOOD MORNING");
+              // Navigator.push(context,
+              //MaterialPageRoute(builder: (context) => userSetting());
+              Navigator.push(context, SlideRightRoute(page: userSetting()));
             },
           ),
           title: Text(
@@ -146,6 +150,8 @@ Widget _buildHorizontalList(
               img: locs.elementAt(index).locImg,
               heig: heigh - 180,
               storeID: locs.elementAt(index).id,
+              llong: locs.elementAt(index).long,
+              llat: locs.elementAt(index).lat,
               context: contex);
         }),
   );
@@ -162,6 +168,8 @@ Widget _buildItem(
     String img,
     double heig,
     String storeID,
+    double llong,
+    double llat,
     BuildContext context}) {
   double edgeSize = 8.0;
   double itemSize = parentSize - edgeSize * 2.0;
@@ -178,8 +186,7 @@ Widget _buildItem(
             context,
             MaterialPageRoute(
               builder: (context) => storeHistoryView(
-                storeID: storeID,
-              ),
+                  storeID: storeID, longCord: llong, latCord: llat),
             ));
       }, // Handle your callback
       child: SizedBox(
@@ -212,30 +219,30 @@ Widget _buildItem(
                               color: color,
                               gradient: new LinearGradient(
                                   colors: [
-                                    Colors.grey.withOpacity(0.60),
-                                    Colors.white.withOpacity(0.70)
+                                    Colors.grey.withOpacity(0.0),
+                                    Colors.white.withOpacity(0.0)
                                   ],
-                                  begin: Alignment.centerRight,
+                                  begin: Alignment.topLeft,
                                   end: new Alignment(-1.0, -1.0)),
                               borderRadius: BorderRadius.circular(20)),
                           child: Column(children: [
                             Text(
                               name,
                               style: TextStyle(
-                                  color: Colors.black,
+                                  color: Colors.white,
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold),
                             ),
                             Text(area + "," + city,
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: Colors.white,
                                   fontSize: 20,
                                 )),
                             Text(
                                 "Number of Violations: " +
                                     violations.toString(),
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: Colors.white,
                                   fontSize: 20,
                                 )),
                             Padding(
@@ -243,22 +250,21 @@ Widget _buildItem(
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  RawMaterialButton(
-                                    onPressed: () {
-                                      print("Delet" + storeID);
-                                    },
-                                    elevation: 2.0,
-                                    fillColor: Colors.white,
-                                    child: Icon(
-                                      Icons.delete,
-                                      size: 35.0,
-                                    ),
-                                    padding: EdgeInsets.all(15.0),
-                                    shape: CircleBorder(),
-                                  ),
-                                ],
+                                children: [],
                               ),
+                            ),
+                            RawMaterialButton(
+                              onPressed: () {
+                                print("Delet" + storeID);
+                              },
+                              elevation: 2.0,
+                              fillColor: Colors.white,
+                              child: Icon(
+                                Icons.delete,
+                                size: 35.0,
+                              ),
+                              padding: EdgeInsets.all(15.0),
+                              shape: CircleBorder(),
                             ),
                           ])),
                     ))),
@@ -267,6 +273,32 @@ Widget _buildItem(
       ),
     ),
   );
+}
+
+class SlideRightRoute extends PageRouteBuilder {
+  final Widget page;
+  SlideRightRoute({this.page})
+      : super(
+          pageBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) =>
+              page,
+          transitionsBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) =>
+              SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(-1, 0),
+              end: Offset.zero,
+            ).animate(animation),
+            child: child,
+          ),
+        );
 }
 
 // class HomePage extends StatelessWidget {

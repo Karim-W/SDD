@@ -98,6 +98,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_plugin_android_lifecycle",
+      "rootUri": "file:///Users/karim/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-1.0.11",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///Users/karim/flutter/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -108,6 +114,18 @@
       "rootUri": "file:///Users/karim/flutter/flutter/packages/flutter_web_plugins",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "google_maps_flutter",
+      "rootUri": "file:///Users/karim/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter-1.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "google_maps_flutter_platform_interface",
+      "rootUri": "file:///Users/karim/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter_platform_interface-1.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.3"
     },
     {
       "name": "http_parser",
@@ -144,6 +162,12 @@
       "rootUri": "file:///Users/karim/.pub-cache/hosted/pub.dartlang.org/nested-0.0.4",
       "packageUri": "lib/",
       "languageVersion": "2.2"
+    },
+    {
+      "name": "page_transition",
+      "rootUri": "file:///Users/karim/.pub-cache/hosted/pub.dartlang.org/page_transition-1.1.7+2",
+      "packageUri": "lib/",
+      "languageVersion": "2.3"
     },
     {
       "name": "path",
@@ -194,6 +218,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "stream_transform",
+      "rootUri": "file:///Users/karim/.pub-cache/hosted/pub.dartlang.org/stream_transform-1.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
+    },
+    {
       "name": "string_scanner",
       "rootUri": "file:///Users/karim/.pub-cache/hosted/pub.dartlang.org/string_scanner-1.1.0-nullsafety.3",
       "packageUri": "lib/",
@@ -230,7 +260,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2020-11-22T16:25:00.343978Z",
+  "generated": "2021-02-10T09:56:58.956730Z",
   "generator": "pub",
   "generatorVersion": "2.12.0-62.0.dev"
 }

@@ -10,18 +10,23 @@ import 'package:provider/provider.dart';
 import 'violationView.dart';
 
 class storeHistoryView extends StatefulWidget {
-  storeHistoryView({this.storeID});
+  storeHistoryView({this.storeID, this.longCord, this.latCord});
   //final FirebaseApp app;
   final storeID;
+  final longCord;
+  final latCord;
   @override
   State<StatefulWidget> createState() {
-    return _storeHistoryView(sID: storeID);
+    return _storeHistoryView(
+        sID: storeID, LongCord: longCord, LatCord: latCord);
   }
 }
 
 class _storeHistoryView extends State<storeHistoryView> {
-  _storeHistoryView({this.sID});
+  _storeHistoryView({this.sID, this.LongCord, this.LatCord});
   final sID;
+  final LongCord;
+  final LatCord;
   List<Violation> violations = [];
   @override
   void initState() {
@@ -39,7 +44,7 @@ class _storeHistoryView extends State<storeHistoryView> {
             values[k]['time'], values[k]['photo'], values[k]['date']);
         if (v.photo == 'n/a') {
           v.photo =
-              'https://i.pinimg.com/originals/ea/c9/96/eac9960a545ec495d88ce0554b9dd51a.png';
+              'https://neurohive.io/wp-content/uploads/2020/04/rsz_ki_social_distancing_detektor-scaled.jpg';
         }
         violations.add(v);
       }
@@ -58,7 +63,7 @@ class _storeHistoryView extends State<storeHistoryView> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: Text(
-            "History",
+            "Violations History",
             style: TextStyle(color: Colors.black),
           ),
           automaticallyImplyLeading: true,
@@ -81,9 +86,10 @@ class _storeHistoryView extends State<storeHistoryView> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => violationView(
-                            violationInst: violations.elementAt(index)),
-                      ));
+                          builder: (context) => violationView(
+                              violationInst: violations.elementAt(index),
+                              longCord: LongCord,
+                              latCord: LatCord)));
                 },
                 title: Text(violations.elementAt(index).date +
                     " " +

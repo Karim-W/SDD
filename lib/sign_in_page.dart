@@ -14,7 +14,7 @@ class SignInPage extends StatelessWidget {
           iconTheme: IconThemeData(color: Colors.white),
           elevation: 0.0,
           title: Text(
-            'Sign-I n',
+            'Sign-In',
             style: TextStyle(
                 fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
           ),
@@ -34,6 +34,7 @@ class SignInPage extends StatelessWidget {
                 decoration: InputDecoration(
                   labelText: "Password",
                 ),
+                obscureText: true,
               ),
               RaisedButton(
                 onPressed: () {
@@ -43,6 +44,15 @@ class SignInPage extends StatelessWidget {
                       );
                 },
                 child: Text("Sign in"),
+              ),
+              RaisedButton(
+                onPressed: () {
+                  // context.read<AuthenticationService>().signIn(
+                  //       email: emailController.text.trim(),
+                  //       password: passwordController.text.trim(),
+                  //     );
+                },
+                child: Text("Sign Up"),
               )
             ],
           ),

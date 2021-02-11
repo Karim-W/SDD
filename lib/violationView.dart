@@ -6,20 +6,26 @@ import 'package:playground/Models/manager.dart';
 import 'package:playground/Models/violation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class violationView extends StatefulWidget {
-  violationView({this.violationInst});
+  violationView({this.violationInst, this.longCord, this.latCord});
   //final FirebaseApp app;
   final violationInst;
+  final longCord;
+  final latCord;
   @override
   State<StatefulWidget> createState() {
-    return _violationView(ViolationInst: violationInst);
+    return _violationView(
+        ViolationInst: violationInst, LongCord: longCord, LatCord: latCord);
   }
 }
 
 class _violationView extends State<violationView> {
-  _violationView({this.ViolationInst});
+  _violationView({this.ViolationInst, this.LongCord, this.LatCord});
   final ViolationInst;
+  final LongCord;
+  final LatCord;
   List<Violation> violations = [];
   @override
   String _storeID;
@@ -49,14 +55,13 @@ class _violationView extends State<violationView> {
         child: Column(
           children: [
             Padding(
-              padding:
-                  EdgeInsets.only(top: (MediaQuery.of(context).size.width / 3)),
+              padding: EdgeInsets.only(top: 10),
               child: Container(
-                height: 200,
-                width: 200,
+                height: 300,
+                width: 300,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        fit: BoxFit.fitHeight,
+                        fit: BoxFit.fill,
                         image: NetworkImage(ViolationInst.photo)),
                     borderRadius: BorderRadius.all(Radius.circular(20.0))),
                 alignment: Alignment.bottomCenter,
@@ -76,6 +81,18 @@ class _violationView extends State<violationView> {
                 style: TextStyle(fontSize: 24),
               ),
             ),
+            Padding(
+                padding: EdgeInsets.all(1),
+                child: SizedBox(
+                  width: (MediaQuery.of(context).size.width - 8),
+                  height: 400,
+                  child: GoogleMap(
+                    initialCameraPosition: CameraPosition(
+                      target: LatLng(LatCord, LongCord),
+                      zoom: 18,
+                    ),
+                  ),
+                )),
           ],
         ),
       ),
