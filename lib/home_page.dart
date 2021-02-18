@@ -6,6 +6,7 @@ import 'package:playground/Models/manager.dart';
 import 'package:playground/Models/violation.dart';
 import 'storeHistoryView.dart';
 import 'package:playground/Views/usersetting.dart';
+import 'package:playground/Models/CustomShowDialog.dart';
 // import 'package:Locations.dart';
 
 import 'authentication_service.dart';
@@ -42,14 +43,18 @@ class _myHomePageState extends State<HomePage> {
         .child("users")
         .child(FirebaseAuth.instance.currentUser.uid)
         .child("pairedLocations");
-    Dbref.once().then((DataSnapshot dataSnapShot) {
+    Dbref.onValue.listen((event) {
+      LocationIds = [];
+      userLocations = [];
+      var dataSnapShot = event.snapshot;
       var keys = dataSnapShot.value.keys;
       var values = dataSnapShot.value;
       for (var key in keys) {
         LocationIds.add(key);
         DatabaseReference ref =
             FirebaseDatabase.instance.reference().child("Locations").child(key);
-        ref.once().then((DataSnapshot dataSnapShots) {
+        ref.onValue.listen((event) {
+          var dataSnapShots = event.snapshot;
           var keyse = dataSnapShots.value.keys;
           var valuese = dataSnapShots.value;
           print(valuese);
@@ -66,10 +71,7 @@ class _myHomePageState extends State<HomePage> {
           userLocations.add(bigL);
           setState(() {});
         });
-        //print(key);
       }
-
-      //print(keys.toString());
     });
   }
 
@@ -86,9 +88,6 @@ class _myHomePageState extends State<HomePage> {
             icon: Icon(Icons.menu),
             color: Colors.black,
             onPressed: () {
-              print("GOOD MORNING");
-              // Navigator.push(context,
-              //MaterialPageRoute(builder: (context) => userSetting());
               Navigator.push(context, SlideRightRoute(page: userSetting()));
             },
           ),
@@ -134,7 +133,7 @@ Widget _buildHorizontalList(
     BuildContext contex}) {
   double height = w_idth - 2;
   return SizedBox(
-    height: heigh - 180,
+    height: heigh * 0.80,
     child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: locs.length,
@@ -148,7 +147,7 @@ Widget _buildHorizontalList(
               city: locs.elementAt(index).city,
               violations: locs.elementAt(index).activeViolation,
               img: locs.elementAt(index).locImg,
-              heig: heigh - 180,
+              heig: heigh * 0.78, //heigh - 180,
               storeID: locs.elementAt(index).id,
               llong: locs.elementAt(index).long,
               llat: locs.elementAt(index).lat,
@@ -255,7 +254,24 @@ Widget _buildItem(
                             ),
                             RawMaterialButton(
                               onPressed: () {
+                                _confirmDelet(context, storeID);
                                 print("Delet" + storeID);
+                                DatabaseReference Dbref = FirebaseDatabase
+                                    .instance
+                                    .reference()
+                                    .child("users")
+                                    .child(
+                                        FirebaseAuth.instance.currentUser.uid)
+                                    .child("pairedLocations");
+                                //Dbref.child(storeID).remove();
+
+                                //context.select((value) => null)
+                                //Navigator.pop(context); // pop current page
+                                //Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //       builder: (context) => HomePage()),
+                                // );
                               },
                               elevation: 2.0,
                               fillColor: Colors.white,
@@ -273,6 +289,84 @@ Widget _buildItem(
       ),
     ),
   );
+}
+
+void _confirmDelet(context, loc_ID) {
+  showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return new CustomAlertDialog(
+          content: new Container(
+              width: 300,
+              height: 200,
+              decoration: new BoxDecoration(
+                shape: BoxShape.rectangle,
+                color: const Color(0xFFFFFF),
+                borderRadius: new BorderRadius.all(new Radius.circular(32.0)),
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Text(
+                      "Are You Sure?",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                    ),
+                    Spacer(),
+                    Text(
+                      "Please click confirm if you would like to remove this location from your list, if you would like to dismiss please click cancel.",
+                      style: TextStyle(
+                          fontWeight: FontWeight.normal, fontSize: 16),
+                    ),
+                    Row(
+                      children: [
+                        Spacer(),
+                        Padding(
+                            padding: EdgeInsets.only(top: 16),
+                            child: RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                              ),
+                              child: Text("Confirm"),
+                              color: Colors.black,
+                              textColor: Colors.white,
+                              onPressed: () {
+                                DatabaseReference Dbref = FirebaseDatabase
+                                    .instance
+                                    .reference()
+                                    .child("users")
+                                    .child(
+                                        FirebaseAuth.instance.currentUser.uid)
+                                    .child("pairedLocations");
+                                Dbref.child(loc_ID).remove();
+                                print("Confirm delete of " + loc_ID);
+                                Navigator.of(context).pop();
+                              },
+                            )),
+                        Spacer(),
+                        Padding(
+                            padding: EdgeInsets.only(top: 16),
+                            child: RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                              ),
+                              child: Text("Cancel"),
+                              color: Colors.black,
+                              textColor: Colors.white,
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            )),
+                        Spacer(),
+                      ],
+                    )
+                  ],
+                ),
+              )),
+        );
+      });
 }
 
 class SlideRightRoute extends PageRouteBuilder {
